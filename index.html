@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aniKa Unique - Multi-Genre Musician</title>
+    <style>
+        /* Updated Color Palette */
+        :root {
+            --primary-purple: #7B47B8;
+            --secondary-purple: #9D6BC7;
+            --accent-pink: #FF9AC1;
+            --light-pink: #FFB8D6;
+            --dark-purple: #5A2A8A;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --text-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Logo in upper left corner - REMOVED */
+
+        /* Hero Logo - moved down */
+        .hero-logo {
+            position: absolute;
+            top: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            max-width: 450px;
+            width: 90%;
+            animation: fadeInDown 1s ease;
+        }
+
+        /* About page logo - moved to left */
+        .about-logo {
+            display: block;
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(255, 154, 193, 0.3);
+            max-width: 300px;
+            margin: 0 0 3rem 0;
+        }
+
+        .about-content-wrapper {
+            clear: both;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 50%, var(--accent-pink) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Animated Musical Elements */
+        .musical-notes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .note {
+            position: absolute;
+            color: rgba(255, 184, 214, 0.4);
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .note:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .note:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .note:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .note:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .note:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .note:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .note:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+        .note:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .note:nth-child(9) { left: 90%; animation-delay: 3.5s; }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .hero-content {
+            z-index: 2;
+            color: white;
+            max-width: 900px;
+            padding: 2rem;
+            margin-top: 18rem;
+        }
+
+        .hero-badge {
+            background: linear-gradient(45deg, var(--accent-pink), var(--light-pink));
+            color: var(--text-dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: fadeInUp 0.8s ease;
+            box-shadow: 0 4px 15px rgba(255, 154, 193, 0.3);
+        }
+
+        .hero h1 {
+            display: none;
+        }
+
+        .hero .stage-name {
+            display: none;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            animation: fadeInUp 1.4s ease;
+        }
+
+        .dynamic-genres {
+            font-size: 1.5rem;
+            height: 2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1.6s ease;
+        }
+
+        .genre-text {
+            background: linear-gradient(45deg, var(--accent-pink), var(--light-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            opacity: 0;
+            position: absolute;
+            animation: genreRotate 12s infinite;
+        }
+
+        .genre-text:nth-child(1) { animation-delay: 0s; }
+        .genre-text:nth-child(2) { animation-delay: 2s; }
+        .genre-text:nth-child(3) { animation-delay: 4s; }
+        .genre-text:nth-child(4) { animation-delay: 6s; }
+        .genre-text:nth-child(5) { animation-delay: 8s; }
+        .genre-text:nth-child(6) { animation-delay: 10s; }
+
+        @keyframes genreRotate {
+            0%, 16.66% { opacity: 1; transform: translateY(0); }
+            33.33%, 100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        .hero-achievements {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            animation: fadeInUp 1.8s ease;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 2s ease;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 40px;
+            background: linear-gradient(45deg, var(--accent-pink), var(--light-pink));
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(255, 154, 193, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 154, 193, 0.4);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-secondary {
+            background: transparent;
+            border: 2px solid var(--accent-pink);
+            color: var(--accent-pink);
+            box-shadow: none;
+        }
+
+        .cta-secondary:hover {
+            background: linear-gradient(45deg, var(--accent-pink), var(--light-pink));
+            color: var(--text-dark);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid var(--accent-pink);
+        }
+
+        .nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--primary-purple);
+            font-weight: 600;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav a:hover {
+            color: var(--accent-pink);
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, var(--accent-pink), var(--light-pink));
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .video-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-section h2 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-family: 'Brush Script MT', cursive, 'Arial', sans-serif;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .video-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 3rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: #000;
+        }
+
+        .video-container::before {
+            content: '';
+            display: block;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, var(--primary-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Brush Script MT', cursive, 'Arial', sans-serif;
+            font-style: italic;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--light-gray);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .instruments {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .instrument-tag {
+            background: linear-gradient(45deg, var(--primary-purple), var(--secondary-purple));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(123, 71, 184, 0.3);
+        }
+
+        .awards {
+            background: linear-gradient(45deg, var(--accent-pink), var(--light-pink));
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--text-dark);
+            box-shadow: 0 8px 25px rgba(255, 154, 193, 0.3);
+        }
+
+        .awards h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-family: 'Brush Script MT', cursive, 'Arial', sans-serif;
+            font-style: italic;
+        }
+
+        /* Music Section */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .music-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(123, 71, 184, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--light-pink);
+        }
+
+        .music-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(123, 71, 184, 0.15);
+        }
+
+        .music-card h3 {
+            color: var(--primary-purple);
+            margin-bottom: 1rem;
+            font-family: 'Brush Script MT', cursive, 'Arial', sans-serif;
+            font-style: italic;
+            font-size: 1.8rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: var(--light-gray);
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 300px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border: 3px solid var(--light-pink);
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(123, 71, 184, 0.8), rgba(255, 154, 193, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+
+        .photo-item:hover::before {
+            opacity: 1;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-purple), var(--secondary-purple));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .photo-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            z-index: 4;
+            position: relative;
+        }
+
+        .photo-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            z-index: 5;
+            position: relative;
+        }
+
+        .photo-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+            z-index: 5;
+            position: relative;
+        }
+
+        /* Bands Section */
+        .bands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .band-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(123, 71, 184, 0.1);
+            transition: transform 0.3s ease;
+            border: 2px solid var(--light-pink);
+        }
+
+        .band-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .band-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-purple);
+            font-family: 'Brush Script MT', cursive, 'Arial', sans-serif;
+            font-style: italic;
+            font-size: 1.5rem;
+        }
+
+        .band-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, var(--primary-purple), var(--secondary-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(123, 71, 184, 0.3);
+        }
+
+        .band-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(123, 71, 184, 0.4);
+        }
+
+        /* Shows Section */
+        .shows {
+            background: var(--light-gray);
+        }
+
+        .show-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(255, 154, 193, 0.4);
+            border-left: 5px solid var(--accent-pink);
+        }
+
+        .show-date {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-purple);
+            margin-bottom: 0.5rem;
+            font-family: 'Brush Script MT', cursive, 'Arial', sans-serif;
+            font-style: italic;
+        }
+
+        .show-venue {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-purple);
+        }
+
+        .show-location {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(123, 71, 184, 0.1);
+            border: 2px solid var(--light-pink);
+            text-align: center;
+        }
+
+        .contact-card h3 {
+            color: var(--primary-purple);
+            margin-bottom: 1.5rem;
+            font-family: 'Brush Script MT', cursive, 'Arial', sans-serif;
+            font-style: italic;
+            font-size: 1.8rem;
+        }
+
+        .contact-card a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .contact-card a:hover {
+            color: var(--primary-purple);
+        }
+
+        .contact-bottom {
+            margin-top: 3rem; 
+            padding: 2rem; 
+            background: linear-gradient(45deg, var(--primary-purple), var(--secondary-purple)); 
+            border-radius: 15px; 
+            color: white;
+            box-shadow: 0 8px 25px rgba(123, 71, 184, 0.3);
+        }
+
+        .contact-bottom h3 {
+            margin-bottom: 1rem;
+            font-family: 'Brush Script MT', cursive, 'Arial', sans-serif;
+            font-style: italic;
+            font-size: 3rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Responsive Design */
+                    @media (max-width: 768px) {
+            .video-section h2 {
+                font-size: 2.5rem;
+            }
+
+            .video-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .video-section {
+                padding: 3rem 1rem;
+            }
+            .hero-logo {
+                max-width: 400px;
+                top: 2rem;
+                padding: 2rem;
+            }
+
+            .hero-content {
+                margin-top: 13rem;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .stage-name {
+                font-size: 3rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .section h2 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#music">Music</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#bands">Bands</a></li>
+            <li><a href="#shows">Shows</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <!-- Hero Logo -->
+        <div class="hero-logo">
+            <div style="text-align: center; font-family: 'Brush Script MT', cursive; color: #7B47B8; line-height: 1.2;">
+                <div style="font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem;">Kiana Smith</div>
+                <div style="font-size: 3.5rem; margin: 1rem 0; color: #FF9AC1;">♪💖♫</div>
+                <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">aniKa Unique Music</div>
+                <div style="font-size: 1.2rem; color: #7B47B8;">
+                    <span>Stringer</span> <span style="color: #FF9AC1; margin: 0 0.5rem;">🎵</span> <span>Singer-Songwriter</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Animated Musical Notes -->
+        <div class="musical-notes">
+            <div class="note">♪</div>
+            <div class="note">♫</div>
+            <div class="note">♪</div>
+            <div class="note">♬</div>
+            <div class="note">♪</div>
+            <div class="note">♫</div>
+            <div class="note">♪</div>
+            <div class="note">♬</div>
+            <div class="note">♪</div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">🏆 Award-Winning Artist</div>
+            <h1>Kiana Smith</h1>
+            <div class="stage-name">aniKa Unique</div>
+            <div class="hero-subtitle">From Carnegie Hall to Houston Stages</div>
+            
+            <div class="dynamic-genres">
+                <span class="genre-text">R&B • Jazz • Blues</span>
+                <span class="genre-text">Classical • Pop • Country</span>
+                <span class="genre-text">K-Pop • Gospel</span>
+                <span class="genre-text">Violin • Viola • Bass</span>
+                <span class="genre-text">Vocalist • Multi-Instrumentalist</span>
+                <span class="genre-text">Available for Your Event</span>
+            </div>
+            
+            <div class="hero-achievements">
+                <strong>✨ Young Rising Star Award Winner 2023</strong><br>
+                <strong>🎼 Carnegie Hall Performer</strong><br>
+                <strong>📺 Featured on CNN's Juneteenth Special</strong>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-button">Book Now</a>
+                <a href="#music" class="cta-button cta-secondary">Listen Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Video Section -->
+    <section class="video-section">
+        <div class="video-content">
+            <h2>Live Performance</h2>
+            <p class="video-subtitle">Experience aniKa Unique's captivating multi-genre artistry</p>
+            <div class="video-container">
+                <div style="background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiNGRjlBQzEiLz4KPHBhdGggZD0iTTMwIDI1TDU1IDQwTDMwIDU1VjI1WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+'); background-size: cover; background-position: center; height: 450px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; cursor: pointer; transition: transform 0.3s ease;" onclick="window.open('https://vimeo.com/1091512838/354e609c43', '_blank')">
+                    <div style="background: rgba(255, 154, 193, 0.9); border-radius: 50%; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <div style="width: 0; height: 0; border-left: 30px solid white; border-top: 20px solid transparent; border-bottom: 20px solid transparent; margin-left: 8px;"></div>
+                    </div>
+                    <h3 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">Watch Live Performance</h3>
+                    <p style="font-size: 1.2rem; margin-bottom: 1.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Experience aniKa Unique's captivating 3-minute multi-genre performance</p>
+                    <div style="display: flex; gap: 1rem; align-items: center; font-size: 1rem; opacity: 0.9;">
+                        <span>🎵 Multi-Genre</span>
+                        <span>🎻 Violin & Vocals</span>
+                        <span>⏱️ 3:11</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <!-- About page logo -->
+        <div class="about-logo">
+            <div style="text-align: center; font-family: 'Brush Script MT', cursive; color: #7B47B8; line-height: 1.2;">
+                <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;">Kiana Smith</div>
+                <div style="font-size: 2.5rem; margin: 1rem 0; color: #FF9AC1;">♪💖♫</div>
+                <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem;">aniKa Unique Music</div>
+                <div style="font-size: 1rem; color: #7B47B8;">
+                    <span>Stringer</span> <span style="color: #FF9AC1; margin: 0 0.5rem;">🎵</span> <span>Singer-Songwriter</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="about-content-wrapper">
+            <h2>About aniKa</h2>
+        <div class="about-content">
+            <div>
+                <div class="awards">
+                    <h3>🏆 Recent Recognition</h3>
+                    <p><strong>Young Rising Star Award</strong><br>Houston Black Music Awards 2023</p>
+                </div>
+                <div class="instruments">
+                    <span class="instrument-tag">Vocals</span>
+                    <span class="instrument-tag">Violin</span>
+                    <span class="instrument-tag">Viola</span>
+                    <span class="instrument-tag">Electric Bass</span>
+                    <span class="instrument-tag">Upright Bass</span>
+                </div>
+            </div>
+            <div class="about-text">
+                <p>Kiana Smith, performing as <strong>aniKa Unique</strong>, is a versatile singer/songwriter, violinist, violist, and bassist who brings extraordinary talent across multiple genres including R&B, Jazz, Blues, Classical, K-Pop, Pop, and Country.</p>
+                
+                <p>Born and raised in Houston, Texas, Kiana's musical journey reached a pivotal moment at age 12 when she performed bass at Carnegie Hall with the Conrad Johnson Youth Orchestra—an opportunity that would shape her artistic path.</p>
+                
+                <p>Her education in Fine Arts schools from first grade through graduation at Beaumont's Ozen High School provided the foundation for her diverse musical expertise. This training led to remarkable collaborations, including recording "Lift Every Voice and Sing" with gospel legend Yolanda Adams for CNN's Juneteenth Special in 2022.</p>
+                
+                <p>Currently, Kiana serves as bassist, violinist, and vocalist for the 2018 International Blues Challenge winner, The Keeshea Pratt Band, while also contributing as bassist and background vocalist with the Clutch City Band. Her ability to seamlessly transition between instruments and genres makes her an invaluable collaborator and captivating solo performer.</p>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section id="music" class="section">
+        <h2>Music Samples</h2>
+        <div class="music-grid">
+            <div class="music-card">
+                <h3>Purple Rain (Prince Kover)</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Click below to listen on SoundCloud:</p>
+                <a href="https://soundcloud.com/kikismitty/purple-rain-prince-kover" target="_blank" style="display: inline-block; padding: 12px 24px; background: linear-gradient(45deg, #ff6b35, #f7931e); color: white; text-decoration: none; border-radius: 25px; font-weight: bold; transition: transform 0.3s ease;">🎵 Play on SoundCloud</a>
+            </div>
+            <div class="music-card">
+                <h3>Versace On The Floor<br>(Bruno Mars Kover)</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Click below to listen on SoundCloud:</p>
+                <a href="https://on.soundcloud.com/SGQ8WngyAJ0D16N2Gr" target="_blank" style="display: inline-block; padding: 12px 24px; background: linear-gradient(45deg, #ff6b35, #f7931e); color: white; text-decoration: none; border-radius: 25px; font-weight: bold; transition: transform 0.3s ease;">🎵 Play on SoundCloud</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery">
+        <h2>Performance Gallery</h2>
+        <div class="photo-grid">
+            <div class="photo-item" onclick="window.open('https://photos.app.goo.gl/5aj811my5oERcMfw9', '_blank')">
+                <div class="photo-placeholder">
+                    <span class="photo-emoji">📸</span>
+                    <span>Photo Gallery<br>Click to View</span>
+                </div>
+            </div>
+            <div class="photo-item" onclick="window.open('https://photos.app.goo.gl/onstReSfdwFNFDRW6', '_blank')">
+                <div class="photo-placeholder">
+                    <span class="photo-emoji">🎻</span>
+                    <span>Violin Performance<br>Click to View</span>
+                </div>
+            </div>
+            <div class="photo-item" onclick="window.open('https://photos.app.goo.gl/GKDHWGJkXWCrqret6', '_blank')">
+                <div class="photo-placeholder">
+                    <span class="photo-emoji">🎸</span>
+                    <span>Bass Performance<br>Click to View</span>
+                </div>
+            </div>
+            <div class="photo-item" onclick="window.open('https://photos.app.goo.gl/crYVqqFNJG36VLTQA', '_blank')">
+                <div class="photo-placeholder">
+                    <span class="photo-emoji">🎤</span>
+                    <span>Live Vocals<br>Click to View</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bands Section -->
+    <section id="bands" class="section">
+        <h2>Band Affiliations</h2>
+        <div class="bands-grid">
+            <div class="band-card">
+                <h3>Clutch City Band</h3>
+                <p>Houston-based versatile ensemble</p>
+                <p><strong>Role:</strong> Bassist & Background Vocalist</p>
+                <a href="https://clutchcityband.com/" target="_blank" class="band-link">Visit Website</a>
+            </div>
+            <div class="band-card">
+                <h3>JoiLux Band</h3>
+                <p>Dynamic performance group</p>
+                <p><strong>Role:</strong> Multi-instrumentalist & Vocalist</p>
+                <a href="https://www.joiluxband.com/" target="_blank" class="band-link">Visit Website</a>
+            </div>
+            <div class="band-card">
+                <h3>The Keeshea Pratt Band</h3>
+                <p>2018 Int'l Blues Challenge Winner</p>
+                <p><strong>Role:</strong> Bassist, Violinist & Vocalist</p>
+                <a href="https://keesheapratt.com/" target="_blank" class="band-link">Visit Website</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shows Section -->
+    <section id="shows" class="section shows">
+        <h2>Upcoming Shows</h2>
+        <div class="show-card">
+            <div class="show-date">June 26, 2025</div>
+            <div class="show-venue">Rock the Dock Series with JoiLux Band</div>
+            <div class="show-location">Kemah Boardwalk, Kemah, TX</div>
+            <p><strong>Time:</strong> 7:00 PM - 10:00 PM CDT</p>
+        </div>
+        <p style="text-align: center; color: #666; font-style: italic;">More shows to be announced soon!</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <h2>Book aniKa Unique</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Ready to bring exceptional multi-genre talent to your event?</p>
+        <div class="contact-info">
+            <div class="contact-card">
+                <h3>📧 Email</h3>
+                <a href="mailto:officialanikaunique@gmail.com">officialanikaunique@gmail.com</a>
+            </div>
+            <div class="contact-card">
+                <h3>📱 Phone</h3>
+                <a href="tel:281-839-9799">281-839-9799</a>
+            </div>
+        </div>
+        <div class="contact-bottom">
+            <h3>Available For:</h3>
+            <p>Concerts • Private Events • Weddings • Corporate Functions • Recording Sessions • Collaborations</p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effects
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(255,255,255,0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.background = 'rgba(255,255,255,0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
